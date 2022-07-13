@@ -1,42 +1,143 @@
-body {
-    background: purple;
-    width: 500px;
-    margin: 20px auto;
-    color: white;
+<html>
+<head>
+<title>Data Mahasiswa</title>
+</head>
+<body>
+
+<?php
+//koneksi ke database
+$koneksi=mysql_connect ('localhost', 'root', '');
+//host, user, password
+$db=mysql_select_db ('mahasiswa');
+//nama database
+?>
+
+<style type="text/css">
+table
+{border: 1px solid #000000;}
+th
+{background-color: #2B95EC;
+ color: #ffffff;}
+tr:hover
+{ background-color: #00ccff;}
+</style>
+
+
+<table width="600" cellpadding="3" cellspacing="3" align="center" border="1">
+<tr>
+<th colspan="2">Input Data Mahasiswa</th>
+</tr>
+<form action="form.php" method="POST" enctype="multipart/form-data">
+<tr>
+<td width="500">NIM</td>
+<td width="600"><input type="text" name="txtnim" size="25"></td>
+</tr>
+<tr>
+<td width="500">Nama</td>
+<td width="600"><input type="text" name="txtnama" size="45"></td>
+</tr>
+<tr>
+<td width="500">Jenis Kelamin</td>
+<td width="600"><input type="radio" name="radiokelamin" value="Laki-laki" />Laki-laki
+<input type="radio" name="radiokelamin" value="Perempuan" />Perempuan</td>
+</tr>
+<tr>
+<td width="500">Alamat</td>
+<td width="600"><textarea name="txtalamat" rows="5" cols="45"></textarea></td>
+</tr>
+<tr>
+<td>Jurusan</td>
+<td><input type="text" name="txtjurusan" size="45"></td>
+</tr>
+<tr>
+<td width="500"></td>
+<td width="600">
+<input id="submit" type="submit" name="simpan" value="Simpan">
+<input id="submit" type="reset" value="Batal"></td>
+</tr>
+</form>
+</table>
+
+<?php
+//menyimpan data ke database
+if (isset($_POST['simpan'])) {
+$nim = $_POST['txtnim'];
+$nama = $_POST['txtnama'];
+$jeniskelamin = $_POST['radiokelamin'];
+$alamat = $_POST['txtalamat'];
+$jurusan = $_POST['txtjurusan'];
+
+//query input
+$input="insert into mhs (nim, nama, jenis_kelamin, alamat, jurusan)
+value ('$nim', '$nama', '$jeniskelamin', '$alamat', '$jurusan')";
+
+//kondisi inputan
+if($nim =='') {
+echo "</br>NIM tidak boleh kosong, diisi dulu";
+}elseif($nama==''){
+echo "</br>Nama tidak boleh kosong, diisi dulu";
+}elseif($jeniskelamin==''){
+echo "</br>Jenis Kelamin tidak boleh kosong, diisi dulu";
+}elseif($alamat==''){
+echo "</br>Alamat tidak boleh kosong, diisi dulu";
+}elseif($jurusan==''){
+echo "</br>Jurusan tidak boleh kosong, diisi dulu";
+}else{
+
+mysql_query($input);
+echo "</br>Data berhasil dimasukkan";
+}}
+?>
+
+<hr>
+<h2 align="center">Data Mahasiswa</h2>
+
+<?php
+//buat warna table
+$warna1 = "#ffffff";
+$warna2 = "#ccffff";
+$warna  = $warna1;
+
+//menampilkan data
+$sql = mysql_query("SELECT * FROM mhs ORDER BY nim");
+if(!$sql)
+die(mysql_error());
+
+echo "<table cellpadding=4 border=1 align=center>
+<tr>
+<th>No</th>
+<th>NIM</th>
+<th>Nama</th>
+<th>Jenis Kelamin</th>
+<th>Alamat</th>
+<th>Jurusan</th>
+
+</tr>";
+
+$no=+1;
+
+while ($baris = mysql_fetch_row($sql)) {
+$name             = $baris[0];
+$email             = $baris[0];
+$mobile             = $baris[0];
+
+if($warna == $warna1){
+$warna = $warna2;}
+else{
+$warna = $warna1;
 }
 
-.header li {
-    list-style: none;
-    float: left;
-    border: 1px solid white;
-    margin-right: 5px;
-    border-radius: 3px;
+echo "<tr>
+<td align=center>$no</td>
+<td align='center'>$name</td>
+<td align=center>$email</td>
+<td align=center>$mobile</td>
+</tr>";
+
+$no++;
 }
 
-.header a {
-    text-decoration: none;
-    color: white;
-    padding: 15px;
-    margin: 2px;
-    font-size: 20px;
-}
-
-.header,
-.content,
-.footer {
-    width: 600px;
-    overflow: hidden;
-    margin: 10px;
-}
-
-.content {
-    border: 1px solid white;
-    padding: 10px;
-    border-radius: 3px;
-}
-
-.footer a {
-    text-decoration: none;
-    color: rgb(190, 188, 188);
-    font-weight: 100;
-}
+echo "</table>";
+?>
+</body>
+</html>
