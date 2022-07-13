@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Data Mahasiswa</title>
+<title>Data</title>
 </head>
 <body>
 
@@ -8,7 +8,7 @@
 //koneksi ke database
 $koneksi=mysql_connect ('localhost', 'root', '');
 //host, user, password
-$db=mysql_select_db ('mahasiswa');
+$db=mysql_select_db ('crud_db');
 //nama database
 ?>
 
