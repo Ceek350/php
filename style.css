@@ -29,25 +29,16 @@ tr:hover
 </tr>
 <form action="form.php" method="POST" enctype="multipart/form-data">
 <tr>
-<td width="500">NIM</td>
-<td width="600"><input type="text" name="txtnim" size="25"></td>
+<td width="500">name</td>
+<td width="600"><input type="text" name="txtname" size="25"></td>
 </tr>
 <tr>
-<td width="500">Nama</td>
-<td width="600"><input type="text" name="txtnama" size="45"></td>
+<td width="500">email</td>
+<td width="600"><input type="text" name="txtemail" size="45"></td>
 </tr>
 <tr>
-<td width="500">Jenis Kelamin</td>
-<td width="600"><input type="radio" name="radiokelamin" value="Laki-laki" />Laki-laki
-<input type="radio" name="radiokelamin" value="Perempuan" />Perempuan</td>
-</tr>
-<tr>
-<td width="500">Alamat</td>
-<td width="600"><textarea name="txtalamat" rows="5" cols="45"></textarea></td>
-</tr>
-<tr>
-<td>Jurusan</td>
-<td><input type="text" name="txtjurusan" size="45"></td>
+<td>mobile</td>
+<td><input type="text" name="txtmobile" size="45"></td>
 </tr>
 <tr>
 <td width="500"></td>
@@ -61,28 +52,21 @@ tr:hover
 <?php
 //menyimpan data ke database
 if (isset($_POST['simpan'])) {
-$nim = $_POST['txtnim'];
-$nama = $_POST['txtnama'];
-$jeniskelamin = $_POST['radiokelamin'];
-$alamat = $_POST['txtalamat'];
-$jurusan = $_POST['txtjurusan'];
+$name = $_POST['txtname'];
+$email = $_POST['txtemail'];
+$mobile = $_POST['txtmobile'];
 
 //query input
-$input="insert into mhs (nim, nama, jenis_kelamin, alamat, jurusan)
-value ('$nim', '$nama', '$jeniskelamin', '$alamat', '$jurusan')";
+$input="insert into users (name, email, mobile)
+value ('$name', '$email', '$mobile')";
 
 //kondisi inputan
-if($nim =='') {
-echo "</br>NIM tidak boleh kosong, diisi dulu";
-}elseif($nama==''){
-echo "</br>Nama tidak boleh kosong, diisi dulu";
-}elseif($jeniskelamin==''){
-echo "</br>Jenis Kelamin tidak boleh kosong, diisi dulu";
-}elseif($alamat==''){
-echo "</br>Alamat tidak boleh kosong, diisi dulu";
-}elseif($jurusan==''){
-echo "</br>Jurusan tidak boleh kosong, diisi dulu";
-}else{
+if($name =='') {
+echo "</br>name tidak boleh kosong, diisi dulu";
+}elseif($email==''){
+echo "</br>email tidak boleh kosong, diisi dulu";
+}elseif($mobile==''){
+echo "</br>mobile tidak boleh kosong, diisi dulu";
 
 mysql_query($input);
 echo "</br>Data berhasil dimasukkan";
@@ -99,18 +83,16 @@ $warna2 = "#ccffff";
 $warna  = $warna1;
 
 //menampilkan data
-$sql = mysql_query("SELECT * FROM mhs ORDER BY nim");
+$sql = mysql_query("SELECT * FROM users ORDER BY name");
 if(!$sql)
 die(mysql_error());
 
 echo "<table cellpadding=4 border=1 align=center>
 <tr>
 <th>No</th>
-<th>NIM</th>
-<th>Nama</th>
-<th>Jenis Kelamin</th>
-<th>Alamat</th>
-<th>Jurusan</th>
+<th>name</th>
+<th>email</th>
+<th>mobile</th>
 
 </tr>";
 
