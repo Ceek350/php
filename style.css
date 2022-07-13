@@ -1,0 +1,42 @@
+body {
+    background: purple;
+    width: 500px;
+    margin: 20px auto;
+    color: white;
+}
+
+.header li {
+    list-style: none;
+    float: left;
+    border: 1px solid white;
+    margin-right: 5px;
+    border-radius: 3px;
+}
+
+.header a {
+    text-decoration: none;
+    color: white;
+    padding: 15px;
+    margin: 2px;
+    font-size: 20px;
+}
+
+.header,
+.content,
+.footer {
+    width: 600px;
+    overflow: hidden;
+    margin: 10px;
+}
+
+.content {
+    border: 1px solid white;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.footer a {
+    text-decoration: none;
+    color: rgb(190, 188, 188);
+    font-weight: 100;
+}
